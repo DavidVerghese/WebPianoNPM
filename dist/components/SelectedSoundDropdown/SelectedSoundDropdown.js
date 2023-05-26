@@ -15,9 +15,7 @@ function SelectedSoundDropdown(_ref) {
   const sounds = ['default', 'am', 'duo', 'fm', 'membrane', 'mono'];
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("label", {
     htmlFor: "scale"
-  }, " Sound: ", /*#__PURE__*/_react.default.createElement("span", {
-    className: "material-symbols-outlined"
-  }, "piano"), " "), /*#__PURE__*/_react.default.createElement("select", {
+  }, " Sound: "), /*#__PURE__*/_react.default.createElement("select", {
     id: "scale",
     value: selectedSound,
     onChange: handleSoundChange

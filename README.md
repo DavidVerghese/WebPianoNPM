@@ -6,7 +6,7 @@ deployed site: https://webpiano.surge.sh/
 
 To install the package, run this command in terminal
 ```
-npm install piano-you-can-play@v0.2.4
+npm install piano-you-can-play@v0.2.8
 ```
 Then you can import the package into a React component like this
 ```

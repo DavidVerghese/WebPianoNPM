@@ -42,6 +42,7 @@ function NotePlayer(_ref) {
       }
     };
     const handleKeyUp = event => {
+      event.preventDefault();
       if (keyToPlay.includes(event.key)) {
         synth.triggerRelease();
         isPlaying = false;
