@@ -1,4 +1,5 @@
 import './SelectedSoundDropdown.css';
+import React from "react";
 
 function SelectedSoundDropdown({ handleSoundChange, selectedSound }) {
   const sounds = ['default', 'am', 'duo', 'fm', 'membrane', 'mono'];

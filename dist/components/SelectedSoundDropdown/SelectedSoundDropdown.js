@@ -12,7 +12,7 @@ function SelectedSoundDropdown(_ref) {
     handleSoundChange,
     selectedSound
   } = _ref;
-  const sounds = ['default', 'am', 'duo', 'fm', 'membrane', 'metal', 'mono'];
+  const sounds = ['default', 'am', 'duo', 'fm', 'membrane', 'mono'];
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("label", {
     htmlFor: "scale"
   }, " Sound: ", /*#__PURE__*/_react.default.createElement("span", {

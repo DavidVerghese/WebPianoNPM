@@ -6,57 +6,54 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+require("core-js/modules/es.array.includes.js");
+require("core-js/modules/es.string.includes.js");
+var _react = _interopRequireWildcard(require("react"));
 var Tone = _interopRequireWildcard(require("tone"));
-require("./Key.css");
-var _react = _interopRequireDefault(require("react"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const useTonePlayer = (note, sound) => {
-  const playSound = () => {
-    if (sound === "default") {
-      const newPlayer = new Tone.Synth().toDestination();
-      newPlayer.triggerAttackRelease(note, "8n");
-    } else if (sound === "am") {
-      const newPlayer = new Tone.AMSynth().toDestination();
-      newPlayer.triggerAttackRelease(note, "8n");
-    } else if (sound === "duo") {
-      const newPlayer = new Tone.DuoSynth().toDestination();
-      newPlayer.triggerAttackRelease(note, "8n");
-    } else if (sound === "fm") {
-      const newPlayer = new Tone.FMSynth().toDestination();
-      newPlayer.triggerAttackRelease(note, "8n");
-    } else if (sound === "membrane") {
-      const newPlayer = new Tone.MembraneSynth().toDestination();
-      newPlayer.triggerAttackRelease(note, "8n");
-    } else {
-      const newPlayer = new Tone.MonoSynth().toDestination();
-      newPlayer.triggerAttackRelease(note, "8n");
-    }
-  };
-  return {
-    playSound
-  };
-};
-function Key(_ref) {
+function NotePlayer(_ref) {
   let {
     note,
-    color,
     sound,
-    keystrokes
+    keyToPlay
   } = _ref;
-  const {
-    playSound
-  } = useTonePlayer(note, sound);
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "key"
-  }, /*#__PURE__*/_react.default.createElement("button", {
-    className: color,
-    onClick: playSound
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "key-info"
-  }, /*#__PURE__*/_react.default.createElement("strong", null, note), /*#__PURE__*/_react.default.createElement("em", null, keystrokes[0]))));
+  let isPlaying = false;
+  (0, _react.useEffect)(() => {
+    let synth;
+    if (sound === "default") {
+      synth = new Tone.Synth().toDestination();
+    } else if (sound === "am") {
+      synth = new Tone.AMSynth().toDestination();
+    } else if (sound === "duo") {
+      synth = new Tone.DuoSynth().toDestination();
+    } else if (sound === "fm") {
+      synth = new Tone.FMSynth().toDestination();
+    } else if (sound === "membrane") {
+      synth = new Tone.MembraneSynth().toDestination();
+    } else {
+      synth = new Tone.MonoSynth().toDestination();
+    }
+    const handleKeyDown = event => {
+      event.preventDefault();
+      if (keyToPlay.includes(event.key) && !isPlaying) {
+        synth.triggerAttack(note);
+        isPlaying = true;
+      }
+    };
+    const handleKeyUp = event => {
+      if (keyToPlay.includes(event.key)) {
+        synth.triggerRelease();
+        isPlaying = false;
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [note, keyToPlay, sound]);
 }
-;
-var _default = Key;
+var _default = NotePlayer;
 exports.default = _default;
