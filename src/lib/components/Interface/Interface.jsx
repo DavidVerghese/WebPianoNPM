@@ -1,14 +1,10 @@
-import Warning from "../Warning/Warning";
 import Piano from "../Piano/Piano";
-import React from "react";
+import Warning from "../Warning/Warning";
 
-function Interface() {
-  return (
-    <div className="interface">
-      <Piano />
-      <Warning/>
-    </div>
-  )
+function Interface({width,height}) {
+  return (<div className="interface">
+    <Piano width={width} height={height} />
+    <Warning/>
+  </div>)
 }
-
 export default Interface;
