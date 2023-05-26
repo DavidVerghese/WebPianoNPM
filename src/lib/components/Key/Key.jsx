@@ -1,6 +1,6 @@
 import * as Tone from 'tone';
-import React from "react";
 import './Key.css';
+import React from "react";
 
 const useTonePlayer = (note, sound) => {
   const playSound = () => {
@@ -24,10 +24,6 @@ const useTonePlayer = (note, sound) => {
       const newPlayer = new Tone.MembraneSynth().toDestination();
       newPlayer.triggerAttackRelease(note, "8n");
     }
-    else if (sound === "metal") {
-      const newPlayer = new Tone.MetalSynth().toDestination();
-      newPlayer.triggerAttackRelease(note, "8n");
-    }
     else {
       const newPlayer = new Tone.MonoSynth().toDestination();
       newPlayer.triggerAttackRelease(note, "8n");
@@ -36,11 +32,11 @@ const useTonePlayer = (note, sound) => {
   return { playSound };
 };
 
-function Key({note, color, sound}) {
+function Key({note, color, sound, keystrokes}) {
   const { playSound } = useTonePlayer(note, sound);
   return (
     <div className="key">
-      <button className={color} onClick={playSound}>{note}</button>
+      <button className={color} onClick={playSound}><div className="key-info"><strong>{note}</strong><em>{keystrokes[0]}</em></div></button>
     </div>
   );
 };

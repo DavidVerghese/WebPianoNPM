@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
 
 function SelectedScaleDropdown({ handleScaleChange, selectedScaleName}) {
   const scales = ["Chromatic", "Minor", "Minor Pentatonic", "Minor Blues", "Major", "Major Pentatonic", "Mixolodian", "Harmonic Minor", "Dorian", "Major Blues", "Klezmer", "Japanese","South East Asian"];
