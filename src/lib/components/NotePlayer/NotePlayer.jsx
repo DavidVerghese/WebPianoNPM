@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as Tone from 'tone';
+import React from "react";
 
 function NotePlayer({ note, sound, keyToPlay }) {
   let isPlaying = false;

@@ -9,7 +9,7 @@ require("core-js/modules/web.dom-collections.iterator.js");
 var _Key = _interopRequireDefault(require("../Key/Key"));
 var Tone = _interopRequireWildcard(require("tone"));
 require("./Piano.css");
-var _react = require("react");
+var _react = _interopRequireWildcard(require("react"));
 var _SelectedScaleDropdown = _interopRequireDefault(require("../SelectedScaleDropdown/SelectedScaleDropdown"));
 var _SelectedSoundDropdown = _interopRequireDefault(require("../SelectedSoundDropdown/SelectedSoundDropdown"));
 var _Scales = require("../Scales/Scales");
@@ -124,27 +124,27 @@ function Piano(_ref) {
       console.warn('Warning: The height prop should be at least 40.');
     }
   }, [height]);
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("div", {
     className: "piano-parent"
-  }, /*#__PURE__*/React.createElement(_SelectedScaleDropdown.default, {
+  }, /*#__PURE__*/_react.default.createElement(_SelectedScaleDropdown.default, {
     handleScaleChange: handleScaleChange,
     selectedScaleName: selectedScaleName
-  }), /*#__PURE__*/React.createElement(_SelectedSoundDropdown.default, {
+  }), /*#__PURE__*/_react.default.createElement(_SelectedSoundDropdown.default, {
     handleSoundChange: handleSoundChange,
     selectedSound: selectedSound
-  }), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/_react.default.createElement("div", {
     className: "piano",
     style: {
       width: width && width >= 400 ? "".concat(width, "px") : defaultWidth,
       height: height && height >= 40 ? "".concat(height, "px") : defaultHeight
     }
-  }, selectedScale.map((note, key) => /*#__PURE__*/React.createElement(_Key.default, {
+  }, selectedScale.map((note, key) => /*#__PURE__*/_react.default.createElement(_Key.default, {
     sound: localStorage.getItem('selectedSound'),
     key: key,
     keystrokes: note.keystrokes,
     note: note.note,
     color: note.color
-  }))), selectedScale.map((note, key) => /*#__PURE__*/React.createElement(_NotePlayer.default, {
+  }))), selectedScale.map((note, key) => /*#__PURE__*/_react.default.createElement(_NotePlayer.default, {
     key: key,
     sound: selectedSound,
     note: note.note,
