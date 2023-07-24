@@ -5,21 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 require("./SelectedSoundDropdown.css");
-var _react = _interopRequireDefault(require("react"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function SelectedSoundDropdown(_ref) {
   let {
     handleSoundChange,
     selectedSound
   } = _ref;
   const sounds = ['default', 'am', 'duo', 'fm', 'membrane', 'mono'];
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("label", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("label", {
     htmlFor: "scale"
-  }, " Sound: "), /*#__PURE__*/_react.default.createElement("select", {
+  }, " Sound: ", /*#__PURE__*/React.createElement("span", {
+    className: "material-symbols-outlined"
+  }, "piano"), " "), /*#__PURE__*/React.createElement("select", {
     id: "scale",
     value: selectedSound,
     onChange: handleSoundChange
-  }, sounds.map((tone, key) => /*#__PURE__*/_react.default.createElement("option", {
+  }, sounds.map((tone, key) => /*#__PURE__*/React.createElement("option", {
     key: key,
     value: tone
   }, tone))));

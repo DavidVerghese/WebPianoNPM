@@ -9,7 +9,7 @@ require("core-js/modules/web.dom-collections.iterator.js");
 var _Key = _interopRequireDefault(require("../Key/Key"));
 var Tone = _interopRequireWildcard(require("tone"));
 require("./Piano.css");
-var _react = _interopRequireWildcard(require("react"));
+var _react = require("react");
 var _SelectedScaleDropdown = _interopRequireDefault(require("../SelectedScaleDropdown/SelectedScaleDropdown"));
 var _SelectedSoundDropdown = _interopRequireDefault(require("../SelectedSoundDropdown/SelectedSoundDropdown"));
 var _Scales = require("../Scales/Scales");
@@ -33,76 +33,87 @@ function Piano(_ref) {
     player.current = new Tone.Synth().toDestination();
     _Scales.chromatic.map(note => setSelectedNotes(current => [...current, note.keystrokes]));
   }, []);
+  (0, _react.useEffect)(() => {
+    if (!localStorage.getItem('selectedSound')) {
+      localStorage.setItem('selectedSound', 'default');
+    }
+    setSelectedSound(localStorage.getItem('selectedSound'));
+  }, [selectedSound]);
+  (0, _react.useEffect)(() => {
+    if (!localStorage.getItem('selectedScaleName')) {
+      localStorage.setItem('selectedScaleName', 'Chromatic');
+    }
+    setSelectedScaleName(localStorage.getItem('selectedScaleName'));
+    switch (selectedScaleName) {
+      case "Chromatic":
+        setSelectedScale(_Scales.chromatic);
+        handleSelectedNoteChange(_Scales.chromatic);
+        break;
+      case "Major":
+        setSelectedScale(_Scales.major);
+        handleSelectedNoteChange(_Scales.major);
+        break;
+      case "Japanese":
+        setSelectedScale(_Scales.japanese);
+        handleSelectedNoteChange(_Scales.japanese);
+        break;
+      case "Major Pentatonic":
+        setSelectedScale(_Scales.majorPentatonic);
+        handleSelectedNoteChange(_Scales.majorPentatonic);
+        break;
+      case "South East Asian":
+        setSelectedScale(_Scales.southEastAsian);
+        handleSelectedNoteChange(_Scales.southEastAsian);
+        break;
+      case "Klezmer":
+        setSelectedScale(_Scales.klezmer);
+        handleSelectedNoteChange(_Scales.klezmer);
+        break;
+      case "Major Blues":
+        setSelectedScale(_Scales.majorBlues);
+        handleSelectedNoteChange(_Scales.majorBlues);
+        break;
+      case "Harmonic Minor":
+        setSelectedScale(_Scales.harmonicMinor);
+        handleSelectedNoteChange(_Scales.harmonicMinor);
+        break;
+      case "Dorian":
+        setSelectedScale(_Scales.dorian);
+        handleSelectedNoteChange(_Scales.dorian);
+        break;
+      case "Mixolodian":
+        setSelectedScale(_Scales.mixolodian);
+        handleSelectedNoteChange(_Scales.mixolodian);
+        break;
+      case "Minor":
+        setSelectedScale(_Scales.minor);
+        handleSelectedNoteChange(_Scales.minor);
+        break;
+      case "Minor Pentatonic":
+        setSelectedScale(_Scales.minorPentatonic);
+        handleSelectedNoteChange(_Scales.minorPentatonic);
+        break;
+      default:
+        setSelectedScale(_Scales.minorBlues);
+        handleSelectedNoteChange(_Scales.minorBlues);
+        break;
+    }
+    ;
+  }, [selectedScaleName]);
   function handleSelectedNoteChange(scale) {
     setSelectedNotes([]);
     scale.map(note => setSelectedNotes(current => [...current, note.keystrokes]));
   }
+  ;
   const handleSoundChange = event => {
     setSelectedSound(event.target.value);
-    let sound = event.target.value;
-    if (sound === "default") {
-      player.current = new Tone.Synth().toDestination();
-    } else if (sound === "am") {
-      player.current = new Tone.AMSynth().toDestination();
-    } else if (sound === "duo") {
-      player.current = new Tone.DuoSynth().toDestination();
-    } else if (sound === "fm") {
-      player.current = new Tone.FMSynth().toDestination();
-    } else if (sound === "membrane") {
-      player.current = new Tone.MembraneSynth().toDestination();
-    } else {
-      player.current = new Tone.MonoSynth().toDestination();
-    }
+    localStorage.setItem('selectedSound', event.target.value);
+    window.location.reload(false);
   };
   const handleScaleChange = event => {
     setSelectedScaleName(event.target.value);
-    if (event.target.value === "Chromatic") {
-      setSelectedScale(_Scales.chromatic);
-      handleSelectedNoteChange(_Scales.chromatic);
-    } else if (event.target.value === "Major") {
-      setSelectedScale(_Scales.major);
-      handleSelectedNoteChange(_Scales.major);
-    } else if (event.target.value === "Japanese") {
-      setSelectedScale(_Scales.japanese);
-      handleSelectedNoteChange(_Scales.japanese);
-    } else if (event.target.value === "Major Pentatonic") {
-      setSelectedScale(_Scales.majorPentatonic);
-      handleSelectedNoteChange(_Scales.majorPentatonic);
-    } else if (event.target.value === "South East Asian") {
-      setSelectedScale(_Scales.southEastAsian);
-      handleSelectedNoteChange(_Scales.southEastAsian);
-    } else if (event.target.value === "Klezmer") {
-      setSelectedScale(_Scales.klezmer);
-      handleSelectedNoteChange(_Scales.klezmer);
-    } else if (event.target.value === "Major Blues") {
-      setSelectedScale(_Scales.majorBlues);
-      handleSelectedNoteChange(_Scales.majorBlues);
-    } else if (event.target.value === "Harmonic Minor") {
-      setSelectedScale(_Scales.harmonicMinor);
-      handleSelectedNoteChange(_Scales.harmonicMinor);
-    } else if (event.target.value === "Dorian") {
-      setSelectedScale(_Scales.dorian);
-      handleSelectedNoteChange(_Scales.dorian);
-    } else if (event.target.value === "Mixolodian") {
-      setSelectedScale(_Scales.mixolodian);
-      handleSelectedNoteChange(_Scales.mixolodian);
-    } else if (event.target.value === "Minor") {
-      setSelectedScale(_Scales.minor);
-      handleSelectedNoteChange(_Scales.minor);
-    } else if (event.target.value === "Minor Pentatonic") {
-      setSelectedScale(_Scales.minorPentatonic);
-      handleSelectedNoteChange(_Scales.minorPentatonic);
-    } else {
-      setSelectedScale(_Scales.minorBlues);
-      handleSelectedNoteChange(_Scales.minorBlues);
-    }
+    localStorage.setItem('selectedScaleName', event.target.value);
   };
-
-  // function handleSelectedNoteChange(scale) {
-  //   setSelectedNotes([])
-  //   scale.map((note) => setSelectedNotes(current => [...current, note.keystrokes]))
-  // }
-
   (0, _react.useEffect)(() => {
     if (width < 400) {
       console.warn('Warning: The width prop should be at least 400.');
@@ -113,27 +124,27 @@ function Piano(_ref) {
       console.warn('Warning: The height prop should be at least 40.');
     }
   }, [height]);
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "piano-parent"
-  }, /*#__PURE__*/_react.default.createElement(_SelectedScaleDropdown.default, {
+  }, /*#__PURE__*/React.createElement(_SelectedScaleDropdown.default, {
     handleScaleChange: handleScaleChange,
     selectedScaleName: selectedScaleName
-  }), /*#__PURE__*/_react.default.createElement(_SelectedSoundDropdown.default, {
+  }), /*#__PURE__*/React.createElement(_SelectedSoundDropdown.default, {
     handleSoundChange: handleSoundChange,
     selectedSound: selectedSound
-  }), /*#__PURE__*/_react.default.createElement("div", {
+  }), /*#__PURE__*/React.createElement("div", {
     className: "piano",
     style: {
       width: width && width >= 400 ? "".concat(width, "px") : defaultWidth,
       height: height && height >= 40 ? "".concat(height, "px") : defaultHeight
     }
-  }, selectedScale.map((note, key) => /*#__PURE__*/_react.default.createElement(_Key.default, {
-    sound: selectedSound,
+  }, selectedScale.map((note, key) => /*#__PURE__*/React.createElement(_Key.default, {
+    sound: localStorage.getItem('selectedSound'),
     key: key,
     keystrokes: note.keystrokes,
     note: note.note,
     color: note.color
-  }))), selectedScale.map((note, key) => /*#__PURE__*/_react.default.createElement(_NotePlayer.default, {
+  }))), selectedScale.map((note, key) => /*#__PURE__*/React.createElement(_NotePlayer.default, {
     key: key,
     sound: selectedSound,
     note: note.note,

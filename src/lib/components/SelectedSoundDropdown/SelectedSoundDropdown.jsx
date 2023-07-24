@@ -1,10 +1,9 @@
 import './SelectedSoundDropdown.css';
-import React from "react";
 
 function SelectedSoundDropdown({ handleSoundChange, selectedSound }) {
   const sounds = ['default', 'am', 'duo', 'fm', 'membrane', 'mono'];
   return (<>
-    <label htmlFor="scale"> Sound: </label>
+    <label htmlFor="scale"> Sound: <span className="material-symbols-outlined">piano</span> </label>
     <select id="scale" value={selectedSound} onChange={handleSoundChange}>
       {sounds.map((tone, key) => <option key={key} value={tone}>{tone}</option>)}
     </select>
